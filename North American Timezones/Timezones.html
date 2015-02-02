@@ -1,0 +1,130 @@
+<html>
+
+<head>
+<title> North American time zones</title>
+
+</head>
+
+<body>
+<h1> North American time zones </h1>
+
+<script language=javascript>
+
+var changeClock;
+
+function pics(){
+var myArray=new Array(12);
+var i;
+for (i=0;i<12;i++){
+pics[i]=new Image();
+pics[i].src="clocks/clock"+i+".jpeg";
+}}
+
+
+function timeShift (currentTime, desiredZone){
+	var timeDif, shiftedTime;
+	if (desiredZone=="Eastern"){
+		timeDif=0;
+		shiftedTime=currentTime+timeDif;
+	}else
+	if (desiredZone=="Atlantic"){
+		timeDif=1;
+		shiftedTime=currentTime+timeDif;
+	}else
+	if (desiredZone=="Central"){
+		timeDif=1;
+		shiftedTime=currentTime-timeDif;
+	}else
+	if (desiredZone=="Mountain"){
+		timeDif=2;
+		shiftedTime=currentTime-timeDif;
+	}else{
+		timeDif=3;
+		shiftedTime=currentTime-timeDif;}
+	if (shiftedTime<1&&document.timeZones.ampmList.value=="am"){
+		shiftedTime=shiftedTime+12;
+		var ampmNew="pm";
+	}else
+	if (shiftedTime<1&&document.timeZones.ampmList.value=="pm"){
+		shiftedTime=shiftedTime+12;
+		var ampmNew="am";
+	}else
+	if (shiftedTime>12&&document.timeZones.ampmList.value=="pm"){
+		shiftedTime=shiftedTime-12;
+		var ampmNew="am";
+	}else
+	if (shiftedTime>12&&document.timeZones.ampmList.value=="am"){
+		shiftedTime=shiftedTime-12;
+		var ampmNew="pm";
+	}else{
+	ampmNew=document.timeZones.ampmList.value;}
+	changeClock= shiftedTime;
+	var finalTime= shiftedTime+":00"+" "+ampmNew;
+	return finalTime;
+}
+</script>
+<form name=timeZones>
+
+When it is
+<input type=text name=hoursBox size=2
+	onchange='
+
+'>
+:00 
+<select name=ampmList>
+	<option value="am">am
+	<option value="pm">pm
+</select>
+in the Eastern time zone, it is
+<input type=text name=shiftedTimeBox size=8>
+in the 
+<select name=zoneList onchange='
+'>
+	<option value="Pacific">Pacific
+	<option value="Mountain">Mountain
+	<option value="Central">Central
+	<option value="Eastern">Eastern
+	<option value="Atlantic">Atlantic
+</select>
+time zone.
+
+<input type=button value="Update"
+	onclick='
+		var hours=
+			parseInt(document.timeZones.hoursBox.value);
+		if (hours<13&&hours>0) {
+			var ampm= document.timeZones.ampmList.value;
+			alert("Input "+hours+":00 " + ampm + " is valid");
+		}else {
+			alert("Please enter an integer from 1 to 12.");
+//using alert to display input as reality check
+			return;
+}
+
+		var zone=
+			document.timeZones.zoneList.value;
+
+			
+		
+		document.timeZones.shiftedTimeBox.value=timeShift (hours, zone);
+
+	pics()
+	document.images[0].src=pics[hours].src;
+	document.images[1].src=pics[changeClock].src;
+
+
+'/>
+<table>
+<tr>
+<td>
+<img src="clocks/clock12.jpeg">
+</td>
+<td>
+<img src="clocks/clock12.jpeg">
+</td>
+</tr>
+</table>
+
+</form>
+</body>
+</html>

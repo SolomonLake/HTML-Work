@@ -1,0 +1,104 @@
+<html>
+<title> Spinner Game </title>
+<body>
+<h1>Lake's Spinner Game</h1>	
+<script = javascript>
+
+var pics = new Array(12);
+
+var frame=0; var offset=1; var guess;
+
+var i;
+for (i=0;i<12;i++){
+pics[i]=new Image();
+pics[i].src="spinners/spinner"+i+".jpg";
+}
+
+function randNum(){
+return Math.floor(Math.random()*100);
+}
+
+function NextFrame()
+{
+	frame=frame+offset;
+	if (frame<0){
+		frame=frame+12;
+}
+	if (frame>11){
+		frame=frame-12;
+}
+
+	document.images[0].src=pics[frame].src;
+}
+
+
+	//#increase or decrease the frame (using offset)#;
+	//#make any adjustments for negative frame value#;
+	//#display picture#;
+
+
+
+function Spin(numspins)
+{
+var i;
+  for(i=0;i<numspins;i++)
+	{
+         setTimeout('NextFrame();',i*30);
+	}
+}
+//#timedelay using loop variable#
+//j=j+1;',[j]+00
+
+function WinLose()
+{
+	if (guess==frame+1){
+		alert ("You win!");
+	}else{
+		alert ("You lose...");
+}
+}
+//#conditional statement that displays win or lose message#;
+
+</script>
+
+<form name=spinnerGame>
+
+<img src="spinners/spinner0.jpg">
+<br>
+Enter your guess
+<input type="text" name="guessBox" size=5 value="" onchange='guess=value;'>
+Direction of Spin:
+
+<table>
+<tr>
+<td><input type=radio name=radioClock checked=true
+  onClick='offset=1;'><font color="008000">clockwise</font>
+</td>
+
+<td><input type=radio name=radioClock
+  onClick='offset=-1; '><font color="008000">counterclockwise</font>
+</td>
+</tr>
+</table>
+
+<input style="background-color:lightblue; font-weight:bold" type=button bgcolor="0000A0" name=spinButton value="Spin!"
+ onClick="
+
+var random=Math.floor(1+Math.random()*100);
+
+Spin (random);
+
+setTimeout(function(){WinLose();},random*32);
+
+
+	  //#call spin function with above variable as argument#;
+	  //setTimeout('WinLose(#value player entered in box#);', #delay greater than total spin time#);
+
+	 ">
+
+
+
+
+</form>
+</body>
+</html>

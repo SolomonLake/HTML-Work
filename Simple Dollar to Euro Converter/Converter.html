@@ -1,0 +1,34 @@
+<html>
+
+<head>
+<title> Currency Converter</title>
+
+</head>
+<script language=javascript>
+function convert(dollarAmount) {
+	return Math.round(dollarAmount*.7724*100)/100;
+}
+</script>
+
+
+<body>
+<h1> Dollars to Euros </h1>
+
+<form name=converter>
+Dollars
+<input type=text name=dollarsBox size=5>
+Euros
+<input type=text name=eurosBox size=5>
+<br/>
+<br/>
+<input type=button value="Convert"
+	onclick='
+		var dollarAmount=
+		document.converter.dollarsBox.value;
+		var eurosAmount= 
+			convert(dollarAmount);
+		document.converter.eurosBox.value=eurosAmount;
+'/>
+</form>
+</body>
+</html>
